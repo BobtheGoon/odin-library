@@ -19,6 +19,19 @@ function addBookToLibrary(book) {
   myLibrary.push(book)
 }
 
+function createRemoveButton(div) {
+  //Create remove button
+  button = document.createElement('button')
+  button.classList.add('removeButton')
+  button.innerHTML = 'Remove'
+
+  button.addEventListener('click', removeBook)
+
+  div.appendChild(button)
+  
+  return div
+}
+
 function displayBooks() {
   shelf = document.getElementById('shelf')
 
@@ -57,9 +70,18 @@ function displayBooks() {
       div.appendChild(p)
     })
 
+    div = createRemoveButton(div)
+
     //Add book to shelf
     shelf.appendChild(div)
   }
+}
+
+
+
+function removeBook(e) {
+  console.log(e.target)
+  console.log('removed')
 }
 
 
