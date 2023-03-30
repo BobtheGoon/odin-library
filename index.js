@@ -14,7 +14,7 @@ Book.prototype.changeRead = function () {
 function addBookToLibrary(book) {
   //Here we need to check the index for the book and add it to the book object, so we can delete it later with more ease
   index = myLibrary.length
-  
+  book.index = index
 
   myLibrary.push(book)
 }
@@ -31,6 +31,11 @@ function displayBooks() {
     
     //Loop over book object
     Object.keys(book).forEach((key) => {
+      //We do not want to display the index of the book in the UI
+      if (key === 'index') {
+        return
+      }
+
       let p = document.createElement('p')
       p.innerHTML = book[key]
 
@@ -49,7 +54,6 @@ function displayBooks() {
           p.classList.add('read')
           break
       }
-
       div.appendChild(p)
     })
 
