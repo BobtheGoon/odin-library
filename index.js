@@ -15,15 +15,15 @@ Book.prototype.changeRead = function () {
 
 
 function addBookToLibrary(book) {
-  //Here we need to check the index for the book and add it to the book object, so we can delete it later with more ease
+  //Here we need to check the index for the book and add it to the book object, so we can delete it later from the array with more ease
   index = myLibrary.length
-  book.index = index
+  book.data = index
 
   myLibrary.push(book)
 }
 
 
-function createRemoveButton(div) {
+function addRemoveButton(div) {
   //Create remove button
   button = document.createElement('button')
   button.classList.add('removeButton')
@@ -36,10 +36,29 @@ function createRemoveButton(div) {
   return div
 }
 
+
+function addToggleReadButton(div) {
+  button = document.createElement('button')
+  button.classList.add('toggleReadButton')
+  button.innerHTML = 'Read'
+  
+  button.addEventListener('click', () => console.log("finish this"))
+  
+  div.appendChild(button)
+
+  return div
+}
+
+
 function removeBook(e) {
   div = e.target.parentNode
+
+  //Remove book from myLibrary array
+  myLibrary.pop(div.dataset.index)
+  //Remove Dom element
   div.remove()
 }
+
 
 function displayBooks() {
   shelf = document.getElementById('shelf')
@@ -54,7 +73,8 @@ function displayBooks() {
     //Loop over book object
     Object.keys(book).forEach((key) => {
       //We do not want to display the index of the book in the UI
-      if (key === 'index') {
+      if (key === 'data') {
+        div.dataset.index = book.data
         return
       }
 
@@ -79,7 +99,8 @@ function displayBooks() {
       div.appendChild(p)
     })
 
-    div = createRemoveButton(div)
+    div = addRemoveButton(div)
+    div = addToggleReadButton(div)
 
     //Add book to shelf
     shelf.appendChild(div)
