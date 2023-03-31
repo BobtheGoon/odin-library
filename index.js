@@ -1,5 +1,6 @@
 let myLibrary = [];
 
+
 function Book(author, title, pages, read=false) {
   this.author = author
   this.title = title
@@ -7,9 +8,11 @@ function Book(author, title, pages, read=false) {
   this.read = read
 }
 
+
 Book.prototype.changeRead = function () {
   this.read = !this.read
 }
+
 
 function addBookToLibrary(book) {
   //Here we need to check the index for the book and add it to the book object, so we can delete it later with more ease
@@ -18,6 +21,7 @@ function addBookToLibrary(book) {
 
   myLibrary.push(book)
 }
+
 
 function createRemoveButton(div) {
   //Create remove button
@@ -30,6 +34,11 @@ function createRemoveButton(div) {
   div.appendChild(button)
   
   return div
+}
+
+function removeBook(e) {
+  div = e.target.parentNode
+  div.remove()
 }
 
 function displayBooks() {
@@ -75,13 +84,6 @@ function displayBooks() {
     //Add book to shelf
     shelf.appendChild(div)
   }
-}
-
-
-
-function removeBook(e) {
-  console.log(e.target)
-  console.log('removed')
 }
 
 
