@@ -60,6 +60,42 @@ function removeBook(e) {
 }
 
 
+function createBookDiv(book) {
+  div = document.createElement('div')
+  div.classList.add('book')
+
+  //Loop over book object
+  Object.keys(book).forEach((key) => {
+    //We do not want to display the index of the book in the UI
+    if (key === 'data') {
+      div.dataset.index = book.data
+      return
+    }
+
+    let p = document.createElement('p')
+    p.innerHTML = book[key]
+
+    //Add a class according to the key of the value for easier styling
+    switch(key) {
+      case 'author':
+        p.classList.add('author')
+        break
+      case 'title':
+        p.classList.add('title')
+        break
+      case 'pages':
+        p.classList.add('pages')
+        break
+      case 'read':
+        p.classList.add('read')
+        break
+    }
+    div.appendChild(p)
+  })
+
+  return div
+}
+
 function displayBooks() {
   shelf = document.getElementById('shelf')
 
@@ -108,7 +144,18 @@ function displayBooks() {
 }
 
 
+function bookFormSubmit() {
+  let bookForm = document.getElementById("add_book")
 
+  bookForm.addEventListener("submit", (e) => {
+    e.preventDefault()
+
+    const book = new Book(author.value, title.value, pages.value)
+    console.log(book)
+    addBookToLibrary(book)
+    // console.log(choice_radio)
+  })
+}
 
 
 
