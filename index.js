@@ -33,7 +33,18 @@ function addToggleReadButton(div) {
   button.classList.add('toggleReadButton')
   button.innerHTML = 'Read'
   
-  button.addEventListener('click', () => console.log("finish this"))
+  button.addEventListener('click', (event) => {
+    //Get value of read property
+    let read = event.target.parentNode.childNodes[3].innerHTML
+
+    //If read == true set it to false and vice versa
+    if (read === 'true') {
+      event.target.parentNode.childNodes[3].innerHTML = 'false'
+    }
+    else {
+      event.target.parentNode.childNodes[3].innerHTML = 'true'
+    }
+  })
   
   div.appendChild(button)
 
@@ -107,18 +118,6 @@ function addBookDivToShelf(div) {
 }
 
 
-//Initial retrieval and display of books from the "database"
-function displayBooks() {
-  //Loop over myLibrary array and append the to the DOM
-  for (i=0; i<myLibrary.length; ++i) {
-    let book = myLibrary[i]
-
-    div = createBookDiv(book)
-    addBookDivToShelf(div)
-  }
-}
-
-
 //Get the submit forms button and add an eventlistener to add the book of the form to the library
 let bookFormBtn = document.getElementById('add_book')
 
@@ -140,6 +139,18 @@ bookFormBtn.addEventListener('submit', (e) => {
   addBookToLibrary(book)
   addBookDivToShelf(div)
 })
+
+
+//Initial retrieval and display of books from the "database"
+function displayBooks() {
+  //Loop over myLibrary array and append the to the DOM
+  for (i=0; i<myLibrary.length; ++i) {
+    let book = myLibrary[i]
+
+    div = createBookDiv(book)
+    addBookDivToShelf(div)
+  }
+}
 
 
 
