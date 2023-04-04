@@ -120,12 +120,21 @@ function displayBooks() {
 
 
 //Get the submit forms button and add an eventlistener to add the book of the form to the library
-let bookFormBtn = document.getElementById("add_book")
+let bookFormBtn = document.getElementById('add_book')
 
-bookFormBtn.addEventListener("submit", (e) => {
+bookFormBtn.addEventListener('submit', (e) => {
   e.preventDefault()
   
-  const book = new Book(author.value, title.value, Number(pages.value))
+  //Check if book is read
+  let read
+  if (radio_yes.checked) {
+    read = true
+  }
+  else {
+    read = false
+  }
+
+  const book = new Book(author.value, title.value, Number(pages.value), read)
 
   div = createBookDiv(book)
   addBookToLibrary(book)
