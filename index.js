@@ -1,5 +1,5 @@
 let myLibrary = [];
-
+let shelf = document.getElementById('shelf')
 
 function Book(author, title, pages, read=false) {
   this.author = author
@@ -11,15 +11,6 @@ function Book(author, title, pages, read=false) {
 
 Book.prototype.changeRead = function () {
   this.read = !this.read
-}
-
-
-function addBookToLibrary(book) {
-  //Here we need to check the index for the book and add it to the book object, so we can delete it later from the array with more ease
-  index = myLibrary.length
-  book.data = index
-
-  myLibrary.push(book)
 }
 
 
@@ -49,6 +40,15 @@ function addToggleReadButton(div) {
   return div
 }
 
+//Add the book object to our books "database"
+function addBookToLibrary(book) {
+  //Here we need to check the index of the book and add it to the book object, so we can delete it later from the array
+  index = myLibrary.length
+  book.data = index
+
+  myLibrary.push(book)
+}
+
 
 function removeBook(e) {
   div = e.target.parentNode
@@ -60,6 +60,7 @@ function removeBook(e) {
 }
 
 
+//Create the book div from a book object
 function createBookDiv(book) {
   div = document.createElement('div')
   div.classList.add('book')
@@ -96,66 +97,40 @@ function createBookDiv(book) {
   return div
 }
 
-function displayBooks() {
-  shelf = document.getElementById('shelf')
+//Take the created book div, add removal and read toggle buttons and add it to the shelf
+function addBookDivToShelf(div) {
+  div = addRemoveButton(div)
+  div = addToggleReadButton(div)
 
+  //Add book to shelf
+  shelf.appendChild(div)
+}
+
+
+//Initial retrieval and display of books from the "database"
+function displayBooks() {
   //Loop over myLibrary array and append the to the DOM
   for (i=0; i<myLibrary.length; ++i) {
     let book = myLibrary[i]
 
-    div = document.createElement('div')
-    div.classList.add('book')
-    
-    //Loop over book object
-    Object.keys(book).forEach((key) => {
-      //We do not want to display the index of the book in the UI
-      if (key === 'data') {
-        div.dataset.index = book.data
-        return
-      }
-
-      let p = document.createElement('p')
-      p.innerHTML = book[key]
-
-      //Add a class according to the key of the value for easier styling
-      switch(key) {
-        case 'author':
-          p.classList.add('author')
-          break
-        case 'title':
-          p.classList.add('title')
-          break
-        case 'pages':
-          p.classList.add('pages')
-          break
-        case 'read':
-          p.classList.add('read')
-          break
-      }
-      div.appendChild(p)
-    })
-
-    div = addRemoveButton(div)
-    div = addToggleReadButton(div)
-
-    //Add book to shelf
-    shelf.appendChild(div)
+    div = createBookDiv(book)
+    addBookDivToShelf(div)
   }
 }
 
 
-function bookFormSubmit() {
-  let bookForm = document.getElementById("add_book")
+//Get the submit forms button and add an eventlistener to add the book of the form to the library
+let bookFormBtn = document.getElementById("add_book")
 
-  bookForm.addEventListener("submit", (e) => {
-    e.preventDefault()
+bookFormBtn.addEventListener("submit", (e) => {
+  e.preventDefault()
+  
+  const book = new Book(author.value, title.value, Number(pages.value))
 
-    const book = new Book(author.value, title.value, pages.value)
-    console.log(book)
-    addBookToLibrary(book)
-    // console.log(choice_radio)
-  })
-}
+  div = createBookDiv(book)
+  addBookToLibrary(book)
+  addBookDivToShelf(div)
+})
 
 
 
