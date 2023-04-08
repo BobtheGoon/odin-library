@@ -153,6 +153,17 @@ function displayBooks() {
 }
 
 
+//Toggle form display event handler
+function displayForm() {
+  div = document.getElementsByClassName('add_form')[0]
+  if (div.style.display === 'none') {
+    div.style.display = 'block'
+  }
+  else {
+    div.style.display = 'none'
+  }
+}
+
 
 book1 = new Book('J.R.R Tolkien', 'The Hobbit', 283, false)
 book2 = new Book('J.R.R Tolkien', 'The Lord of the Rings', 961, false)

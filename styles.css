@@ -22,3 +22,7 @@
 form {
   margin: 30px 0px;
 }
+
+.add_form {
+  display: none;
+}
