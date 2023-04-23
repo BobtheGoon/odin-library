@@ -1,16 +1,17 @@
 let myLibrary = [];
 let shelf = document.getElementById('shelf')
 
-function Book(author, title, pages, read=false) {
+class Book {
+  constructor (author, title, pages, read=false) {
   this.author = author
   this.title = title
   this.pages = pages
   this.read = read
-}
+  }
 
-
-Book.prototype.changeRead = function () {
-  this.read = !this.read
+  changeRead() {
+    this.read = !this.read
+  }
 }
 
 
